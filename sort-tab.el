@@ -444,7 +444,9 @@ If you want buffer hide, return t, or return nil.")
 (defun sort-tab-get-buffer-list ()
   (sort (cl-remove-if
          #'sort-tab-buffer-need-hide-p
-         (buffer-list))
+         (if (fboundp 'tabspaces--buffer-list)
+             (tabspaces--buffer-list)
+           (buffer-list)))
         #'sort-tab-buffer-freq-higher-p))
 
 (defun sort-tab-get-index ()
